@@ -1,43 +1,76 @@
 # Log anomaly detector
 
-This project is a beginner-friendly blue team portfolio project. It parses
-authentication logs and alerts on possible brute-force behavior.
+A beginner-friendly **blue team portfolio project** that parses authentication
+logs and raises alerts for brute-force-like behavior in a rolling time window.
 
-## What this project does
+## Portfolio summary
 
-This script reads log lines, tracks failed authentication attempts by IP,
-and raises an alert when failures exceed a threshold in a rolling time window.
+This project shows that you can:
 
-- Parses simple auth log lines.
-- Detects brute-force-like bursts.
-- Exports alerts to JSON or CSV.
+- parse and normalize security-relevant telemetry,
+- implement threshold-based detections,
+- produce simple SOC-friendly alert artifacts.
 
-## Run it
+### MITRE ATT&CK mapping (high level)
 
-Use the sample log to test quickly:
+- **T1110: Brute Force**
+
+## Features
+
+The detector reads auth events and alerts when failed logins from the same IP
+exceed a threshold in a defined time window.
+
+- parses simple auth log format,
+- tracks failed attempts by source IP,
+- exports findings to JSON and CSV.
+
+## Project structure
+
+```text
+.
+├── detector.py
+├── sample_auth.log
+└── README.md
+```
+
+## Quick start
+
+Use Python 3.10+.
 
 ```bash
 python3 detector.py --log sample_auth.log --threshold 5 --window 10
 ```
 
-To export alerts:
+Export alert files:
 
 ```bash
 python3 detector.py --log sample_auth.log --json-out alerts.json --csv-out alerts.csv
 ```
 
+## Sample output
+
+```text
+Detected 1 alert(s):
+- possible_bruteforce ip=185.23.10.2 count=5 window=10m
+```
+
 ## Log format
 
-Expected format per line:
+Expected line format:
 
 ```text
 2026-03-09T09:15:01Z auth failed user=admin ip=192.168.1.10
 ```
 
-## Next steps
+## What I learned
 
-You can extend this project by:
+- Good detections start with clean parsing and clear assumptions.
+- Rolling windows reduce noise versus static counters.
+- Alert context (count, first seen, last seen) helps triage speed.
 
-- Tracking user-level anomalies.
-- Adding geolocation enrichment.
-- Mapping alerts to MITRE ATT&CK techniques.
+## Roadmap
+
+- Add user-account anomaly checks.
+- Add allowlist/suppressions for noisy internal scanners.
+- Add geolocation enrichment and severity scoring.
+- Add Sigma-style rule export.
