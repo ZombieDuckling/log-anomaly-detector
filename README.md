@@ -28,8 +28,10 @@ exceed a threshold in a defined time window.
 
 ```text
 .
+├── .github/workflows/ci.yml
 ├── detector.py
 ├── sample_auth.log
+├── tests/test_detector.py
 └── README.md
 ```
 
@@ -46,6 +48,15 @@ Export alert files:
 ```bash
 python3 detector.py --log sample_auth.log --json-out alerts.json --csv-out alerts.csv
 ```
+
+Run the characterization suite locally:
+
+```bash
+python3 -m pip install pytest
+python3 -m pytest -q
+```
+
+Pull requests run the same pytest suite on Python 3.10 and 3.12 through GitHub Actions.
 
 ## Sample output
 
@@ -74,3 +85,4 @@ Expected line format:
 - Add allowlist/suppressions for noisy internal scanners.
 - Add geolocation enrichment and severity scoring.
 - Add Sigma-style rule export.
+- Expand fixture coverage for additional auth log formats.
