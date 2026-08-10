@@ -1,0 +1,7 @@
+2026-03-09T09:00:01Z auth failed user=admin ip=185.23.10.2
+2026-03-09T09:01:00Z auth failed user=admin ip=185.23.10.2
+2026-03-09T09:02:10Z auth failed user=admin ip=185.23.10.2
+2026-03-09T09:03:20Z auth failed user=admin ip=185.23.10.2
+2026-03-09T09:04:30Z auth failed user=admin ip=185.23.10.2
+2026-03-09T09:07:00Z auth success user=alice ip=196.11.2.5
+2026-03-09T09:09:10Z auth failed user=root ip=10.0.0.5
